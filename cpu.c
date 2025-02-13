@@ -5,11 +5,6 @@
 #include <rrd.h>
 #include <rrd_client.h>
 
-#ifndef MAX_CPUS
-/* Seems adequately optimistic */
-#define MAX_CPUS 256
-#endif
-
 void append_tok(char **val, int *len, int *pos, const char *tok) {
   int tok_len;
   if (tok == NULL) { exit(-1); }
