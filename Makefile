@@ -23,6 +23,15 @@ cpu.o: cpu.c
 cpu: cpu.o
 	$(CC) -o $@ $^ $(LDFLAGS) $(LIBS)
 
+mem.o: mem.c
+	$(CC) -c -o $@ $< $(CFLAGS)
+
+mem: mem.o
+	$(CC) -o $@ $^ $(LDFLAGS) $(LIBS)
+
 install-cpu: cpu
+	install -o $(BINOWN) -m $(BINMODE) -s $^ $(DESTDIR)$(BINDIR)/submit-$^
+
+install-mem: mem
 	install -o $(BINOWN) -m $(BINMODE) -s $^ $(DESTDIR)$(BINDIR)/submit-$^
 
