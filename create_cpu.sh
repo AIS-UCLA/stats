@@ -3,9 +3,9 @@
 DB="$(uname -n)/cpu.rrd"
 CACHED="sullivan:42217"
 
-names=("user" "system" "idle")
+names=("user" "system")
 for ((i=0; i<$(nproc); i++ )); do
-  names+=("user$i" "system$i" "idle$i")
+  names+=("user$i" "system$i")
 done
 DSs=()
 for name in "${names[@]}"; do

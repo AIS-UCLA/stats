@@ -43,8 +43,9 @@ int submit_cpu(char *db) {
     append_tok(&val, &val_len, &val_pos, strtok(NULL, " ")); /* user */
     strtok(NULL , " ");                                      /* nice */
     append_tok(&val, &val_len, &val_pos, strtok(NULL, " ")); /* system */
-    append_tok(&val, &val_len, &val_pos, strtok(NULL, " ")); /* idle */
   }
+
+  fclose(f);
   val[val_pos - 1] = '\0';
 
   if (rrdc_update(db, 1, (const char * const *)&val)) {
