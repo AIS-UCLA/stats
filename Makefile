@@ -12,7 +12,7 @@ BINOWN= root
 BINMODE=0544
 
 CFLAGS+=  -W -Wextra -Wpedantic -Werror \
-          -std=c89 \
+          -std=c99 \
           -fPIE
 LIBS=     -lrrd
 LDFLAGS+=
@@ -29,9 +29,18 @@ mem.o: mem.c
 mem: mem.o
 	$(CC) -o $@ $^ $(LDFLAGS) $(LIBS)
 
+gpu.o: gpu.c
+	$(CC) -c -o $@ $< $(CFLAGS)
+
+gpu: gpu.o
+	$(CC) -o $@ $^ $(LDFLAGS) $(LIBS) -lnvidia-ml
+
 install-cpu: cpu
 	install -o $(BINOWN) -m $(BINMODE) -s $^ $(DESTDIR)$(BINDIR)/submit-$^
 
 install-mem: mem
+	install -o $(BINOWN) -m $(BINMODE) -s $^ $(DESTDIR)$(BINDIR)/submit-$^
+
+install-gpu: gpu
 	install -o $(BINOWN) -m $(BINMODE) -s $^ $(DESTDIR)$(BINDIR)/submit-$^
 
